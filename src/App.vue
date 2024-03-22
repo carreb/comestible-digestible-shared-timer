@@ -2,7 +2,7 @@
   <h1 v-if="timer != -1 && timer != -2" ref="timer">{{ formattedTimer(timer) }}</h1>
 
   <div class="bound-to-bottom">
-    <input type="number" v-model="newtimer">
+    <input type="number" v-model="newtimer" @keypress="event => event.key === 'Enter' && setTimer()" />
     <button @click="setTimer()">Set Timer</button>
   </div>
 </template>
