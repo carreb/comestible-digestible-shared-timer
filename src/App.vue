@@ -13,7 +13,7 @@ import io from 'socket.io-client';
 export default {
   name: 'App',
   mounted() {
-    const socket = io('http://localhost:56565');
+    const socket = io('https://io.comestible.domyjobfor.me/');
     socket.on('connect', () => {
       console.log('Connected to server');
     });
