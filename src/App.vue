@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="timer > 0">{{ formattedTimer(timer) }}</h1>
+  <h1 v-if="timer != -1 && timer != -2" ref="timer">{{ formattedTimer(timer) }}</h1>
 
   <div class="bound-to-bottom">
     <input type="number" v-model="newtimer">
@@ -28,7 +28,8 @@ export default {
     return {
       timer: 0,
       newtimer: 20,
-      socket: null
+      socket: null,
+      flashes: 0
     }
   },
   methods: {
@@ -42,7 +43,8 @@ export default {
         // Timer should be formatted as 00:00
         const minutes = Math.floor(timer / 60);
         const seconds = timer % 60;
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        let formattedTimer = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        return formattedTimer;
       }
     }
   }
@@ -61,18 +63,21 @@ export default {
   font-size: 5rem;
   height: 100%;
 }
-html {
+body {
   background-color: #000000;
+  font-family: 'Seven Segment', sans-serif;
+  font-weight: 400;
 }
 
 .bound-to-bottom {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #000000;
   padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Seven Segment', sans-serif;
+  font-weight: 400;
 }
 </style>
