@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     setTimer() {
+      this.newtimer = parseInt(this.newtimer);
       this.socket.emit('newTimer', this.newtimer);
     }
   },
