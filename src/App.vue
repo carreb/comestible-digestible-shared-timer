@@ -1,5 +1,6 @@
 <template>
   <h1 v-if="timer != -1 && timer != -2" ref="timer" v-html="formattedTimer(timer)"></h1>
+  <h1 v-if="timer == -2" ref="timer">00<span class="colon">:</span>00</h1>
 
   <div class="bound-to-bottom">
     <input type="number" v-model="newtimer" @keypress="event => event.key === 'Enter' && setTimer()" />
