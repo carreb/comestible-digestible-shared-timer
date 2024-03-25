@@ -2,9 +2,10 @@
   <h1 v-if="timer != -1 && timer != -2" ref="timer" v-html="formattedTimer(timer)"></h1>
   <h1 v-if="timer == -2" ref="timer">00<span class="colon">:</span>00</h1>
 
-  <div class="bound-to-bottom">
+  <div class="bound-to-bottom" v-if="controlsEnabled">
     <input type="number" v-model="newtimer" @keypress="event => event.key === 'Enter' && setTimer()" />
     <button @click="setTimer()">Set Timer</button>
+    <button @click="hideControls()">Hide Controls</button>
   </div>
 </template>
 
@@ -30,13 +31,17 @@ export default {
       timer: 0,
       newtimer: 20,
       socket: null,
-      flashes: 0
+      flashes: 0,
+      controlsEnabled: true
     }
   },
   methods: {
     setTimer() {
       this.newtimer = parseInt(this.newtimer);
       this.socket.emit('newTimer', this.newtimer);
+    },
+    hideControls() {
+      this.controlsEnabled = false;
     }
   },
   computed: {
