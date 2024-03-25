@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="timer != -1 && timer != -2" ref="timer">{{ formattedTimer(timer) }}</h1>
+  <h1 v-if="timer != -1 && timer != -2" ref="timer" v-html="formattedTimer(timer)"></h1>
 
   <div class="bound-to-bottom">
     <input type="number" v-model="newtimer" @keypress="event => event.key === 'Enter' && setTimer()" />
@@ -44,7 +44,7 @@ export default {
         // Timer should be formatted as 00:00
         const minutes = Math.floor(timer / 60);
         const seconds = timer % 60;
-        let formattedTimer = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        let formattedTimer = `${minutes.toString().padStart(2, '0')}<span class="colon">:</span>${seconds.toString().padStart(2, '0')}`;
         return formattedTimer;
       }
     }
@@ -53,9 +53,14 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'Segment7Standard';
+  src: url('/public/Segment7Standard.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
 @import url('https://fonts.cdnfonts.com/css/seven-segment');
 #app {
-  font-family: 'Seven Segment', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -66,8 +71,16 @@ export default {
 }
 body {
   background-color: #000000;
-  font-family: 'Seven Segment', sans-serif;
-  font-weight: 400;
+  font-family: 'Segment7Standard';
+  font-weight: normal;
+  font-style: italic;
+}
+
+.colon {
+    font-family: 'Seven Segment', sans-serif;
+    font-weight: 400;
+    font-size: 25rem;
+    font-style: normal;
 }
 
 .bound-to-bottom {
